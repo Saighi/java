@@ -18,24 +18,47 @@ public class Pion extends Piece{
     public ArrayList<int[]> deplacements_Possibles() {
         ArrayList<int[]> deplacements= new ArrayList<int[]>();
 
-        super.addMove(x,y+1,deplacements);
+        if (super.e==Equipe.Blanc) {
+            super.addMove(x, y + 1, deplacements);
 
-        if (y==1){
+            if (y == 1) {
 
-            super.addMove(x,y+2,deplacements);
-        }
-
-        if (x+1 <8) {
-            if (super.p.cases[x + 1][y + 1] != null) {
-                if (super.p.cases[x + 1][y + 1].e != this.e) super.addMove(x + 1, y + 1, deplacements);
+                super.addMove(x, y + 2, deplacements);
             }
+
+            if ((x + 1 < 8)&&(y+1<8) ){
+                if (super.p.cases[x + 1][y + 1] != null) {
+                    if (super.p.cases[x + 1][y + 1].e != this.e) super.addMove(x + 1, y + 1, deplacements);
+                }
+            }
+
+            if ((x - 1 > 8)&&(y+1<8) ) {
+                if (super.p.cases[x - 1][y + 1] != null) {
+                    if (super.p.cases[x - 1][y + 1].e != this.e) super.addMove(x - 1, y + 1, deplacements);
+                }
+            }
+        }else{
+            super.addMove(x, y - 1, deplacements);
+
+            if (y == 6) {
+
+                super.addMove(x, y - 2, deplacements);
+            }
+
+            if ((x + 1 < 8)&&(y-1)>0) {
+                if (super.p.cases[x + 1][y - 1] != null) {
+                    if (super.p.cases[x + 1][y - 1].e != this.e) super.addMove(x + 1, y - 1, deplacements);
+                }
+            }
+
+            if ((x - 1 > 0)&&(y-1)>0) {
+                if (super.p.cases[x - 1][y - 1] != null) {
+                    if (super.p.cases[x - 1][y - 1].e != this.e) super.addMove(x - 1, y - 1, deplacements);
+                }
+            }
+
         }
 
-        if (x-1 >8) {
-            if (super.p.cases[x - 1][y + 1] != null) {
-                if (super.p.cases[x - 1][y + 1].e != this.e) super.addMove(x - 1, y + 1, deplacements);
-            }
-        }
         return deplacements;
     }
 
