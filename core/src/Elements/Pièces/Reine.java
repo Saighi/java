@@ -15,7 +15,7 @@ public class Reine extends Piece{
     public ArrayList<int[]> deplacements_Possibles() {
         ArrayList<int[]> deplacements= new ArrayList<int[]>();
 
-        int h = 0;
+        int h =0;
         boolean obstacle1=false;
         boolean obstacle2=false;
         boolean obstacle3=false;
@@ -27,11 +27,12 @@ public class Reine extends Piece{
 
         do {
 
+            h++;
 
             if ((x + h) < 8&& !obstacle1)    super.addMove(x + h, y, deplacements);
             if ((y + h) < 8&& !obstacle2)    super.addMove(x, y + h, deplacements);
-            if ((x - h) < 8&& !obstacle3)    super.addMove(x + h, y, deplacements);
-            if ((y - h) < 8&& !obstacle4)    super.addMove(x, y + h, deplacements);
+            if ((x - h) < 8&& !obstacle3)    super.addMove(x - h, y, deplacements);
+            if ((y - h) < 8&& !obstacle4)    super.addMove(x, y - h, deplacements);
 
             if (x+h<8) if (super.p.cases[x+h][y] != null)obstacle1=true;
             if (y+h<8) if (super.p.cases[x][y+h] != null)obstacle2=true;
@@ -51,7 +52,7 @@ public class Reine extends Piece{
             if (x-h>8 && y+h<8)if (super.p.cases[x-h][y+h] != null)obstacle7=true;
             if (x-h>8 && y-h>8)if (super.p.cases[x-h][y-h] != null)obstacle8=true;
 
-            h++;
+           
 
         }while((x + h) < 8 || (y + h) < 8 || (x - h) > 0 || (y - h) > 0);
 
