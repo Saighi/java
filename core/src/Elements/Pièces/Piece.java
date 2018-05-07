@@ -40,7 +40,7 @@ public abstract class Piece {
         this.capturee = capturee;
     }
 
-    abstract ArrayList<int[]> deplacements_Possibles();
+    public abstract ArrayList<int[]> deplacements_Possibles();
 
     public int getX() {
         return x;

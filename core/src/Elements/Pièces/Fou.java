@@ -16,13 +16,28 @@ public class Fou extends Piece{
         ArrayList<int[]> deplacements= new ArrayList<int[]>();
 
         int h = 0;
+        boolean obstacle1=false;
+        boolean obstacle2=false;
+        boolean obstacle3=false;
+        boolean obstacle4=false;
 
         do {
 
-            if (((x + h) < 8) && ((y + h) < 8))    super.addMove(x + h, y + h, deplacements);
-            if (((x + h) < 8) && ((y - h) > 0))    super.addMove(x + h, y - h, deplacements);
-            if (((x - h) > 0) && ((y + h) < 8))    super.addMove(x - h, y + h, deplacements);
-            if (((x - h) > 0) && ((y - h) > 0))    super.addMove(x - h, y - h, deplacements);
+
+            if (((x + h) < 8) && ((y + h) < 8) && !obstacle1)    super.addMove(x + h, y + h, deplacements);
+
+            if (((x + h) < 8) && ((y - h) > 0)&& !obstacle2)    super.addMove(x + h, y - h, deplacements);
+
+            if (((x - h) > 0) && ((y + h) < 8)&& !obstacle3)    super.addMove(x - h, y + h, deplacements);
+
+            if (((x - h) > 0) && ((y - h) > 0) && !obstacle4)    super.addMove(x - h, y - h, deplacements);
+
+            if (super.p.cases[x+h][y+h] != null)obstacle1=true;
+            if (super.p.cases[x+h][y-h] != null)obstacle2=true;
+            if (super.p.cases[x-h][y+h] != null)obstacle3=true;
+            if (super.p.cases[x-h][y-h] != null)obstacle4=true;
+
+            h++;
 
         }while((x + h) < 8 || (y + h) < 8 || (x - h) > 0 || (y - h) > 0);
 

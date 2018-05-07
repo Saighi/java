@@ -16,13 +16,28 @@ public class Tour extends Piece{
         ArrayList<int[]> deplacements= new ArrayList<int[]>();
 
         int h = 0;
+        boolean obstacle1=false;
+        boolean obstacle2=false;
+        boolean obstacle3=false;
+        boolean obstacle4=false;
+
 
         do {
 
-            if ((x + h) < 8)    super.addMove(x + h, y, deplacements);
-            if ((y + h) < 8)    super.addMove(x, y + h, deplacements);
+            if ((x + h) < 8 || !obstacle1)    super.addMove(x + h, y, deplacements);
+            if ((y + h) < 8|| !obstacle2)    super.addMove(x, y + h, deplacements);
+            if ((x - h) < 8|| !obstacle3)    super.addMove(x + h, y, deplacements);
+            if ((y - h) < 8|| !obstacle4)    super.addMove(x, y + h, deplacements);
 
-        }while((x + h) < 8 || (y + h) < 8);
+            if (super.p.cases[x+h][y] != null)obstacle1=true;
+            if (super.p.cases[x][y+h] != null)obstacle2=true;
+            if (super.p.cases[x-h][y] != null)obstacle3=true;
+            if (super.p.cases[x][y-h] != null)obstacle4=true;
+
+
+            h++;
+
+        }while((x + h) < 8 || (y + h) < 8 || (x - h) > 0 || (y - h) > 0);
 
         return deplacements;
     }

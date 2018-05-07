@@ -7,6 +7,9 @@ import Elements.Plateau;
 public class Pion extends Piece{
 
 
+
+
+
     public Pion(Equipe e, int x, int y , Plateau p) {
         super(e, x, y, p);
     }
@@ -18,8 +21,20 @@ public class Pion extends Piece{
         super.addMove(x,y+1,deplacements);
 
         if (y==1){
-            super.addMove(x,y+2,deplacements);
 
+            super.addMove(x,y+2,deplacements);
+        }
+
+        if (x+1 <8) {
+            if (super.p.cases[x + 1][y + 1] != null) {
+                if (super.p.cases[x + 1][y + 1].e != this.e) super.addMove(x + 1, y + 1, deplacements);
+            }
+        }
+
+        if (x-1 >8) {
+            if (super.p.cases[x - 1][y + 1] != null) {
+                if (super.p.cases[x - 1][y + 1].e != this.e) super.addMove(x - 1, y + 1, deplacements);
+            }
         }
         return deplacements;
     }

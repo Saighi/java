@@ -10,15 +10,19 @@ import Elements.Pièces.Fou;
 import Elements.Pièces.Cavalier;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+
 
 
 public class Demo extends Game {
 	private SpriteBatch batch;
 	private Texture plateau_img;
+
+	private int caseSelectx=0;
+    private int caseSelecty=2;
 
     private Texture bPion;
 	private Texture bTour;
@@ -33,15 +37,20 @@ public class Demo extends Game {
 	private Texture nCavalier;
 	private Texture nRoi;
 	private Texture nReine;
+	private Texture point;
 
 	private Plateau p;
+
+    int a = 84;
+    int b = 55;
+    int c = 70;
 
 
 	
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		plateau_img=new Texture("plateau.jpg");
+		plateau_img=new Texture("plateau.png");
 
 		bPion= new Texture("WhitePawn.png");
 		bTour= new Texture("WhiteRook.png");
@@ -57,6 +66,8 @@ public class Demo extends Game {
 		nRoi= new Texture("BlackKing.png");
 		nReine= new Texture("BlackQueen.png");
 
+		point = new  Texture("point.png");
+
         p = new Plateau();
 
 
@@ -66,6 +77,7 @@ public class Demo extends Game {
     @Override
 	public void render () {
 		//super.render();
+        clics();
 		Gdx.gl.glClearColor(1,1,1,1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -74,17 +86,45 @@ public class Demo extends Game {
 
 		batch.begin();
 		affichage_plateau(p);
+		affichage_selection(caseSelectx,caseSelecty);
 		batch.end();
 	}
 
+	public void affichage_selection(int x,int y){
+	    if (p.getCase(x,y)!=null) {
+            for (int[] coordonées : p.getCase(x, y).deplacements_Possibles()) {
+                batch.draw(point,(coordonées[0]*a)+b,(coordonées[1]*a)+c);
+            }
+        }
+    }
+
+    private void clics() {
+
+
+        if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)){
+
+            for (int i =0; i<8; i++) {
+                for (int j = 0; j < 8; j++) {
+                    if((Gdx.input.getX()>(i*a)+b && Gdx.input.getX()<(i*a)+b+a) && ((Gdx.graphics.getHeight() - Gdx.input.getY())>(j*a)+c && (Gdx.graphics.getHeight() - Gdx.input.getY())<(j*a)+c+a)){
+                        System.out.println(p.getCase(i,j));
+                        caseSelectx=i;
+                        caseSelecty=j;
+
+                    }
+
+                }
+            }
+
+
+
+	        }
+        }
 	private void affichage_plateau(Plateau p){
         batch.draw(plateau_img,0,0);
 	    for (int i =0; i<8; i++){
             for (int j =0; j<8; j++){
 
-            	int a = 81;
-            	int b = 80;
-            	int c = 75;
+
 
                 if (p.getCase(i,j) instanceof Pion && p.getCase(i,j).e == Equipe.Blanc){
                     //System.out.println("pion");

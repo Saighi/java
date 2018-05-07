@@ -62,6 +62,8 @@ public class Plateau {
     }
 
     public boolean checkCase(Piece p, int x, int y){
+        if (y>=8 || x>=8 || y<0 ||x<0) return false;
+
 
         if (this.cases[x][y] == null) return true;
 
