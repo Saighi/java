@@ -52,7 +52,7 @@ public class Reine extends Piece{
             if (x-h>8 && y+h<8)if (super.p.cases[x-h][y+h] != null)obstacle7=true;
             if (x-h>8 && y-h>8)if (super.p.cases[x-h][y-h] != null)obstacle8=true;
 
-           
+
 
         }while((x + h) < 8 || (y + h) < 8 || (x - h) > 0 || (y - h) > 0);
 

@@ -26,13 +26,13 @@ public class Tour extends Piece{
 
             if ((x + h) < 8 || !obstacle1)    super.addMove(x + h, y, deplacements);
             if ((y + h) < 8|| !obstacle2)    super.addMove(x, y + h, deplacements);
-            if ((x - h) < 8|| !obstacle3)    super.addMove(x + h, y, deplacements);
-            if ((y - h) < 8|| !obstacle4)    super.addMove(x, y + h, deplacements);
+            if ((x - h) < 8|| !obstacle3)    super.addMove(x - h, y, deplacements);
+            if ((y - h) < 8|| !obstacle4)    super.addMove(x, y - h, deplacements);
 
-            if (super.p.cases[x+h][y] != null)obstacle1=true;
-            if (super.p.cases[x][y+h] != null)obstacle2=true;
-            if (super.p.cases[x-h][y] != null)obstacle3=true;
-            if (super.p.cases[x][y-h] != null)obstacle4=true;
+            if (x+h<8) if (super.p.cases[x+h][y] != null)obstacle1=true;
+            if (y+h<8) if (super.p.cases[x][y+h] != null)obstacle2=true;
+            if (x-h>8) if (super.p.cases[x-h][y] != null)obstacle3=true;
+            if (y-h>8) if (super.p.cases[x][y-h] != null)obstacle4=true;
 
 
             h++;

@@ -32,10 +32,10 @@ public class Fou extends Piece{
 
             if (((x - h) > 0) && ((y - h) > 0) && !obstacle4)    super.addMove(x - h, y - h, deplacements);
 
-            if (super.p.cases[x+h][y+h] != null)obstacle1=true;
-            if (super.p.cases[x+h][y-h] != null)obstacle2=true;
-            if (super.p.cases[x-h][y+h] != null)obstacle3=true;
-            if (super.p.cases[x-h][y-h] != null)obstacle4=true;
+            if (x+h<8 && y+h<8)if (super.p.cases[x+h][y+h] != null)obstacle1=true;
+            if (x+h<8 && y-h>8)if (super.p.cases[x+h][y-h] != null)obstacle2=true;
+            if (x-h>8 && y+h<8)if (super.p.cases[x-h][y+h] != null)obstacle3=true;
+            if (x-h>8 && y-h>8)if (super.p.cases[x-h][y-h] != null)obstacle4=true;
 
             h++;
 
