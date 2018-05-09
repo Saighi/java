@@ -13,6 +13,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 
@@ -38,6 +39,9 @@ public class Demo extends Game {
 	private Texture nRoi;
 	private Texture nReine;
 	private Texture point;
+
+	private Texture selecT;
+	private Sprite selec;
 
 	private Plateau p;
 
@@ -70,6 +74,10 @@ public class Demo extends Game {
 
 		point = new  Texture("point.png");
 
+		selecT = new Texture("selec.png");
+		selec= new Sprite(selecT,82,83);
+		selec.setAlpha(0.3f);
+
         p = new Plateau();
 
 
@@ -79,24 +87,28 @@ public class Demo extends Game {
     @Override
 	public void render () {
 		//super.render();
-		System.out.println(joueur);
-        clics();
-		Gdx.gl.glClearColor(1,1,1,1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		//System.out.println(joueur);
+
+			clics();
+			Gdx.gl.glClearColor(1, 1, 1, 1);
+			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 
+			batch.begin();
+			affichage_plateau(p);
+			affichage_selection(caseSelectx, caseSelecty);
+			batch.end();
 
 
-		batch.begin();
-		affichage_plateau(p);
-		affichage_selection(caseSelectx,caseSelecty);
-		batch.end();
+		//System.out.print(p.isWon().toString() + " a gagné");
 	}
 
 	public void affichage_selection(int x,int y){
 	    if (p.getCase(x,y)!=null) {
             for (int[] coordonées : p.getCase(x, y).deplacements_Possibles()) {
-                batch.draw(point,(coordonées[0]*a)+b,(coordonées[1]*a)+c);
+            	selec.setPosition((coordonées[0]*a)+b,(coordonées[1]*a)+c);
+				selec.draw(batch);
+                //batch.draw(point,(coordonées[0]*a)+b,(coordonées[1]*a)+c);
             }
         }
     }
@@ -180,7 +192,7 @@ public class Demo extends Game {
 							}
 						}
 
-                        System.out.println(p.getCase(i,j));
+                        //System.out.println(p.getCase(i,j));
                         caseSelectx=i;
                         caseSelecty=j;
 

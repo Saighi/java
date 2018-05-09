@@ -13,6 +13,8 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class Plateau {
     public Piece[][] cases;
+    private Piece Wking;
+    private Piece Bking;
 
 
     public Plateau() {
@@ -24,7 +26,7 @@ public class Plateau {
         new Cavalier(Equipe.Blanc,1,0, this);
         new Fou(Equipe.Blanc,2,0, this);
         new Reine(Equipe.Blanc,3,0, this);
-        new Roi(Equipe.Blanc,4,0, this);
+        Wking = new Roi(Equipe.Blanc,4,0, this);
         new Fou(Equipe.Blanc,5,0, this);
         new Cavalier(Equipe.Blanc,6,0, this);
         new Tour(Equipe.Blanc,7,0, this);
@@ -45,7 +47,7 @@ public class Plateau {
         new Cavalier(Equipe.Noir,1,7, this);
         new Fou(Equipe.Noir,2,7, this);
         new Reine(Equipe.Noir,3,7, this);
-        new Roi(Equipe.Noir,4,7, this);
+        Bking = new Roi(Equipe.Noir,4,7, this);
         new Fou(Equipe.Noir,5,7, this);
         new Cavalier(Equipe.Noir,6,7, this);
         new Tour(Equipe.Noir,7,7, this);
@@ -76,6 +78,16 @@ public class Plateau {
 
     public Piece getCase(int x, int y) {
         return this.cases[x][y];
+    }
+
+    public Equipe isWon(){
+
+        if (Wking.deplacements_Possibles().size() == 0) return Equipe.Noir;
+
+        else if (Bking.deplacements_Possibles().size() == 0) return Equipe.Blanc;
+
+        return null;
+
     }
 
     public void changeCase(Piece p, int x, int y){this.cases[x][y]=p;}

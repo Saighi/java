@@ -18,4 +18,12 @@ public enum Equipe{
         return false;
     }
 
+    @Override
+    public String toString() {
+
+        if (this == Equipe.Blanc) return "Blanc";
+        else if (this == Equipe.Noir) return "Noir";
+
+        return "personne";
+    }
 }
