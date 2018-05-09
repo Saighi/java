@@ -75,8 +75,10 @@ public class Plateau {
     }
 
     public Piece getCase(int x, int y) {
-        return cases[x][y];
+        return this.cases[x][y];
     }
+
+    public void changeCase(Piece p, int x, int y){this.cases[x][y]=p;}
 
     public void setCases(Piece[][] cases) {
         this.cases = cases;

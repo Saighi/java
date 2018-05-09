@@ -6,6 +6,7 @@ import Elements.Plateau;
 
 public class Tour extends Piece{
 
+    private boolean bougé =false;
 
     public Tour(Equipe e, int x, int y , Plateau p) {
         super(e, x,y,p);
@@ -44,4 +45,11 @@ public class Tour extends Piece{
     }
 
 
+    public boolean isBougé() {
+        return bougé;
+    }
+
+    public void setBougé(boolean bougé) {
+        this.bougé = bougé;
+    }
 }

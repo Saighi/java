@@ -45,6 +45,8 @@ public class Demo extends Game {
     int b = 55;
     int c = 70;
 
+    int joueur=0;
+
 
 	
 	@Override
@@ -77,6 +79,7 @@ public class Demo extends Game {
     @Override
 	public void render () {
 		//super.render();
+		System.out.println(joueur);
         clics();
 		Gdx.gl.glClearColor(1,1,1,1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -105,20 +108,90 @@ public class Demo extends Game {
 
             for (int i =0; i<8; i++) {
                 for (int j = 0; j < 8; j++) {
+
+
                     if((Gdx.input.getX()>(i*a)+b && Gdx.input.getX()<(i*a)+b+a) && ((Gdx.graphics.getHeight() - Gdx.input.getY())>(j*a)+c && (Gdx.graphics.getHeight() - Gdx.input.getY())<(j*a)+c+a)){
+
+
+                    	if (p.getCase(caseSelectx, caseSelecty)!=null) {
+							for (int[] coordonées : p.getCase(caseSelectx, caseSelecty).deplacements_Possibles()) {
+								if ((i==coordonées[0])&&(j==coordonées[1])&&p.getCase(caseSelectx, caseSelecty).getE().EquipeParNombre(joueur)){
+									p.changeCase(p.getCase(caseSelectx,caseSelecty),i,j);
+									p.getCase(i,j).setX(i);
+									p.getCase(i,j).setY(j);
+									
+									if(p.getCase(caseSelectx,caseSelecty)instanceof Pion && p.getCase(caseSelectx, caseSelecty).getE()==Equipe.Blanc && j==7 ){
+										p.changeCase(new Reine(Equipe.Blanc,i,j,p), i,j);
+									}
+
+									if(p.getCase(caseSelectx,caseSelecty)instanceof Pion && p.getCase(caseSelectx, caseSelecty).getE()==Equipe.Noir && j==0){
+										p.changeCase(new Reine(Equipe.Noir,i,j,p), i,j);
+									}
+
+									if(p.getCase(caseSelectx,caseSelecty)instanceof Roi && !((Roi) p.getCase(caseSelectx, caseSelecty)).isBougé()) {
+
+										if (p.getCase(caseSelectx,caseSelecty).getE()==Equipe.Blanc) {
+
+											((Roi) p.getCase(4, 0)).setBougé(true);
+											if (i == 2) {
+												p.changeCase(new Tour(Equipe.Blanc, 3, 0, p), 3, 0);
+												p.changeCase(null, 0, 0);
+												((Tour) p.getCase(3, 0)).setBougé(true);
+
+
+											}
+											if (i == 6) {
+												p.changeCase(new Tour(Equipe.Blanc, 5, 0, p), 5, 0);
+												p.changeCase(null, 7, 0);
+												((Tour) p.getCase(5, 0)).setBougé(true);
+
+
+											}
+										}
+
+										else{
+
+												((Roi) p.getCase(4, 7)).setBougé(true);
+												if (i == 2) {
+													p.changeCase(new Tour(Equipe.Noir, 3, 7, p), 3, 7);
+													p.changeCase(null, 0, 7);
+													((Tour) p.getCase(3, 7)).setBougé(true);
+
+
+												}
+												if (i == 6) {
+													p.changeCase(new Tour(Equipe.Noir, 5, 7, p), 5, 7);
+													p.changeCase(null, 7, 7);
+													((Tour) p.getCase(5, 7)).setBougé(true);
+
+
+
+
+												}
+										}
+									}
+
+									p.changeCase(null,caseSelectx,caseSelecty);
+
+
+									joueur=(joueur+1)%2;
+								}
+
+							}
+						}
+
                         System.out.println(p.getCase(i,j));
                         caseSelectx=i;
                         caseSelecty=j;
 
-                    }
+                    	}
 
-                }
-            }
+                	}
+            	}
 
+	    }
+	}
 
-
-	        }
-        }
 	private void affichage_plateau(Plateau p){
         batch.draw(plateau_img,0,0);
 	    for (int i =0; i<8; i++){

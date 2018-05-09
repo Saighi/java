@@ -57,6 +57,11 @@ public abstract class Piece {
     public void setY(int y) {
         this.y = y;
     }
+
+    public Equipe getE() {
+        return e;
+    }
+
 }
 
 

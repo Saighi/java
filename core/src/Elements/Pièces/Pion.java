@@ -19,6 +19,9 @@ public class Pion extends Piece{
         ArrayList<int[]> deplacements= new ArrayList<int[]>();
 
         if (super.e==Equipe.Blanc) {
+
+            if (y+1<8)
+            if(p.getCase(x,y+1)==null)
             super.addMove(x, y + 1, deplacements);
 
             if (y == 1) {
@@ -32,12 +35,16 @@ public class Pion extends Piece{
                 }
             }
 
-            if ((x - 1 > 8)&&(y+1<8) ) {
+            if ((x - 1 > 0)&&(y+1<8) ) {
                 if (super.p.cases[x - 1][y + 1] != null) {
                     if (super.p.cases[x - 1][y + 1].e != this.e) super.addMove(x - 1, y + 1, deplacements);
                 }
             }
+
         }else{
+
+            if (y-1>0)
+            if(p.getCase(x,y-1)==null)
             super.addMove(x, y - 1, deplacements);
 
             if (y == 6) {
