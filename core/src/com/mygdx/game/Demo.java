@@ -89,6 +89,7 @@ public class Demo extends Game {
 		//super.render();
 		//System.out.println(joueur);
 
+            p.updateDeplacements();
 			clics();
 			Gdx.gl.glClearColor(1, 1, 1, 1);
 			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -105,7 +106,7 @@ public class Demo extends Game {
 
 	public void affichage_selection(int x,int y){
 	    if (p.getCase(x,y)!=null) {
-            for (int[] coordonées : p.getCase(x, y).deplacements_Possibles()) {
+            for (int[] coordonées : p.getCase(x, y).deplacements) {
             	selec.setPosition((coordonées[0]*a)+b,(coordonées[1]*a)+c);
 				selec.draw(batch);
                 //batch.draw(point,(coordonées[0]*a)+b,(coordonées[1]*a)+c);
@@ -126,7 +127,7 @@ public class Demo extends Game {
 
 
                     	if (p.getCase(caseSelectx, caseSelecty)!=null) {
-							for (int[] coordonées : p.getCase(caseSelectx, caseSelecty).deplacements_Possibles()) {
+							for (int[] coordonées : p.getCase(caseSelectx, caseSelecty).deplacements) {
 								if ((i==coordonées[0])&&(j==coordonées[1])&&p.getCase(caseSelectx, caseSelecty).getE().EquipeParNombre(joueur)){
 									p.changeCase(p.getCase(caseSelectx,caseSelecty),i,j);
 									p.getCase(i,j).setX(i);

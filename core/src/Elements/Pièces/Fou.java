@@ -12,8 +12,9 @@ public class Fou extends Piece{
     }
 
     @Override
-    public ArrayList<int[]> deplacements_Possibles() {
+    public void deplacements_Possibles() {
         ArrayList<int[]> deplacements= new ArrayList<int[]>();
+        boolean menacant = false;
 
         int h = 0;
         boolean obstacle5=false;
@@ -25,13 +26,13 @@ public class Fou extends Piece{
 
             h++;
 
-            if (((x + h) < 8) && ((y + h) < 8) && !obstacle5)    super.addMove(x + h, y + h, deplacements);
+            if (((x + h) < 8) && ((y + h) < 8) && !obstacle5)    menacant = super.addMove(x + h, y + h, deplacements);
 
-            if (((x + h) < 8) && ((y - h) > 0)&& !obstacle6)    super.addMove(x + h, y - h, deplacements);
+            if (((x + h) < 8) && ((y - h) > 0)&& !obstacle6)    menacant = super.addMove(x + h, y - h, deplacements);
 
-            if (((x - h) > 0) && ((y + h) < 8)&& !obstacle7)    super.addMove(x - h, y + h, deplacements);
+            if (((x - h) > 0) && ((y + h) < 8)&& !obstacle7)    menacant = super.addMove(x - h, y + h, deplacements);
 
-            if (((x - h) > 0) && ((y - h) > 0) && !obstacle8)    super.addMove(x - h, y - h, deplacements);
+            if (((x - h) > 0) && ((y - h) > 0) && !obstacle8)    menacant = super.addMove(x - h, y - h, deplacements);
 
             if (x+h<8 && y+h<8)if (super.p.cases[x+h][y+h] != null)obstacle5=true;
             if (x+h<8 && y-h>0)if (super.p.cases[x+h][y-h] != null)obstacle6=true;
@@ -39,10 +40,11 @@ public class Fou extends Piece{
             if (x-h>0 && y-h>0)if (super.p.cases[x-h][y-h] != null)obstacle8=true;
 
 
-
         }while((x + h) < 8 || (y + h) < 8 || (x - h) > 0 || (y - h) > 0);
 
-        return deplacements;
+        if(menacant) p.getEking(this).menaces.add(deplacements);
+
+        super.deplacements = deplacements;
     }
 
 

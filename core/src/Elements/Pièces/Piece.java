@@ -10,6 +10,7 @@ public abstract class Piece {
     protected int x;
     protected int y;
     protected Plateau p;
+    public ArrayList<int[]> deplacements;
 
     public Piece(Equipe e, int x, int y , Plateau p) {
         this.e = e;
@@ -22,14 +23,30 @@ public abstract class Piece {
         this.p = p;
     }
 
-    public void addMove(int x, int y, ArrayList<int[]> moves) {
+    public boolean addMove(int x, int y, ArrayList<int[]> moves) {
+
+        Roi r = this.p.getking(this);
 
         if (p.checkCase(this, x, y)){
 
-            moves.add(new int[]{x, y});
+            if(r.menaces.size()>0) {
+
+                if(r.isCounter(x,y)){
+                    moves.add(new int[]{x, y});
+                    if(p.checkKing(this,x,y)) return true;
+                    else return false;
+                }
+            }
+            else {
+                moves.add(new int[]{x, y});
+                if(p.checkKing(this,x,y)) return true;
+                else return false;
+            }
+
 
         }
 
+        return false;
     }
 
     public boolean isCapturee() {
@@ -40,7 +57,7 @@ public abstract class Piece {
         this.capturee = capturee;
     }
 
-    public abstract ArrayList<int[]> deplacements_Possibles();
+    public abstract void deplacements_Possibles();
 
     public int getX() {
         return x;

@@ -13,8 +13,9 @@ public class Tour extends Piece{
     }
 
     @Override
-    public ArrayList<int[]> deplacements_Possibles() {
+    public void deplacements_Possibles() {
         ArrayList<int[]> deplacements= new ArrayList<int[]>();
+        boolean menacant = false;
 
         int h = 0;
         boolean obstacle1=false;
@@ -27,10 +28,10 @@ public class Tour extends Piece{
 
             h++;
 
-            if (((x + h) < 8) && !obstacle1)    super.addMove(x + h, y, deplacements);
-            if (((y + h) < 8) && !obstacle2)    super.addMove(x, y + h, deplacements);
-            if (((x - h) < 8) && !obstacle3)    super.addMove(x - h, y, deplacements);
-            if (((y - h) < 8) && !obstacle4)    super.addMove(x, y - h, deplacements);
+            if (((x + h) < 8) && !obstacle1)    menacant = super.addMove(x + h, y, deplacements);
+            if (((y + h) < 8) && !obstacle2)    menacant = super.addMove(x, y + h, deplacements);
+            if (((x - h) < 8) && !obstacle3)    menacant = super.addMove(x - h, y, deplacements);
+            if (((y - h) < 8) && !obstacle4)    menacant = super.addMove(x, y - h, deplacements);
 
             if (x+h<8) if (super.p.cases[x+h][y] != null)obstacle1=true;
             if (y+h<8) if (super.p.cases[x][y+h] != null)obstacle2=true;
@@ -41,7 +42,9 @@ public class Tour extends Piece{
 
         }while((x + h) < 8 || (y + h) < 8 || (x - h) > 0 || (y - h) > 0);
 
-        return deplacements;
+        if(menacant) p.getEking(this).menaces.add(deplacements);
+
+        super.deplacements = deplacements;
     }
 
 

@@ -14,22 +14,25 @@ public class Cavalier extends Piece{
     }
 
     @Override
-    public ArrayList<int[]> deplacements_Possibles() {
+    public void deplacements_Possibles() {
         ArrayList<int[]> deplacements= new ArrayList<int[]>();
+        boolean menacant = false;
 
-        super.addMove(x+this.l,y+this.s,deplacements);
-        super.addMove(x+this.l,y-this.s,deplacements);
+        menacant = super.addMove(x+this.l,y+this.s,deplacements);
+        menacant = super.addMove(x+this.l,y-this.s,deplacements);
 
-        super.addMove(x-this.l,y+this.s,deplacements);
-        super.addMove(x-this.l,y-this.s,deplacements);
+        menacant = super.addMove(x-this.l,y+this.s,deplacements);
+        menacant = super.addMove(x-this.l,y-this.s,deplacements);
 
-        super.addMove(x+this.s,y+this.l,deplacements);
-        super.addMove(x-this.s,y+this.l,deplacements);
+        menacant = super.addMove(x+this.s,y+this.l,deplacements);
+        menacant = super.addMove(x-this.s,y+this.l,deplacements);
 
-        super.addMove(x+this.s,y-this.l,deplacements);
-        super.addMove(x-this.s,y-this.l,deplacements);
+        menacant = super.addMove(x+this.s,y-this.l,deplacements);
+        menacant = super.addMove(x-this.s,y-this.l,deplacements);
 
-        return deplacements;
+        if(menacant) p.getEking(this).menaces.add(deplacements);
+
+        super.deplacements = deplacements;
     }
 
 

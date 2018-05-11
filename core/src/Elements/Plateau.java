@@ -13,8 +13,8 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class Plateau {
     public Piece[][] cases;
-    private Piece Wking;
-    private Piece Bking;
+    private Roi Wking;
+    private Roi Bking;
 
 
     public Plateau() {
@@ -63,6 +63,18 @@ public class Plateau {
 
     }
 
+    public void updateDeplacements(){
+
+        for (int x =0; x<8; x++) {
+            for (int y = 0; y < 8; y++) {
+
+                if(this.cases[x][y]!=null) this.cases[x][y].deplacements_Possibles();
+
+            }
+        }
+
+    }
+
     public boolean checkCase(Piece p, int x, int y){
         if (y>=8 || x>=8 || y<0 ||x<0) return false;
 
@@ -76,18 +88,33 @@ public class Plateau {
         return false;
     }
 
+    public boolean checkKing(Piece p, int x, int y){
+
+        if (this.cases[x][y] instanceof Roi && this.cases[x][y].e != p.e) {
+            return true;
+        }
+
+        return false;
+    }
+
     public Piece getCase(int x, int y) {
         return this.cases[x][y];
     }
 
-    public Equipe isWon(){
+    public Roi getEking(Piece p){
 
-        if (Wking.deplacements_Possibles().size() == 0) return Equipe.Noir;
-
-        else if (Bking.deplacements_Possibles().size() == 0) return Equipe.Blanc;
+        if(p.e == Equipe.Blanc) return Bking;
+        if(p.e == Equipe.Noir) return Wking;
 
         return null;
+    }
 
+    public Roi getking(Piece p){
+
+        if(p.e == Equipe.Blanc) return Wking;
+        if(p.e == Equipe.Noir) return Bking;
+
+        return null;
     }
 
     public void changeCase(Piece p, int x, int y){this.cases[x][y]=p;}
