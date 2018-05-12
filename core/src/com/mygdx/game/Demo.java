@@ -89,17 +89,17 @@ public class Demo extends Game {
 		//super.render();
 		//System.out.println(joueur);
 
-        p.updateDeplacements();
-        clics();
-        Gdx.gl.glClearColor(1, 1, 1, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+            p.updateDeplacements();
+			clics();
+			Gdx.gl.glClearColor(1, 1, 1, 1);
+			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 
-        batch.begin();
-        affichage_plateau(p);
-        affichage_selection(caseSelectx, caseSelecty);
-        batch.end();
-        p.isWon();
+			batch.begin();
+			affichage_plateau(p);
+			affichage_selection(caseSelectx, caseSelecty);
+			batch.end();
+
 
 		//System.out.print(p.isWon().toString() + " a gagné");
 	}

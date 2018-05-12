@@ -75,22 +75,6 @@ public class Plateau {
 
     }
 
-    public boolean isWon(){
-
-        if(Wking.isCapturee()) {
-
-            System.out.print("Les Noirs ont gagnées");
-            return true;
-        }
-        else if(Bking.isCapturee()) {
-
-            System.out.print("Les Blancs ont gagnées");
-            return true;
-        }
-
-        return false;
-    }
-
     public boolean checkCase(Piece p, int x, int y){
         if (y>=8 || x>=8 || y<0 ||x<0) return false;
 
@@ -133,11 +117,7 @@ public class Plateau {
         return null;
     }
 
-    public void changeCase(Piece p, int x, int y){
-
-        if (this.cases[x][y] !=null) this.cases[x][y].setCapturee(true);
-        this.cases[x][y]=p;
-    }
+    public void changeCase(Piece p, int x, int y){this.cases[x][y]=p;}
 
     public void setCases(Piece[][] cases) {
         this.cases = cases;
