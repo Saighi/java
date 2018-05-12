@@ -23,19 +23,31 @@ public abstract class Piece {
         this.p = p;
     }
 
-    public void addMove(int x, int y, ArrayList<int[]> moves) {
+    public boolean addMove(int x, int y, ArrayList<int[]> moves) {
 
         Roi r = this.p.getking(this);
 
-        if (p.checkCase(this, x, y)) {
+        if (p.checkCase(this, x, y)){
 
-            moves.add(new int[]{x, y});
+            if(r.menaces.size()>0) {
+
+                if(r.isCounter(x,y)){
+                    moves.add(new int[]{x, y});
+                    if(p.checkKing(this,x,y)) return true;
+                    else return false;
+                }
+            }
+            else {
+                moves.add(new int[]{x, y});
+                if(p.checkKing(this,x,y)) return true;
+                else return false;
+            }
+
 
         }
 
+        return false;
     }
-
-
 
     public boolean isCapturee() {
         return capturee;

@@ -17,35 +17,38 @@ public class Roi extends Piece{
     @Override
     public void deplacements_Possibles() {
         ArrayList<int[]> deplacements= new ArrayList<int[]>();
+        boolean menacant = false;
 
-         super.addMove(x,y+1,deplacements);
-         super.addMove(x+1,y+1,deplacements);
-         super.addMove(x+1,y,deplacements);
-         super.addMove(x+1,y-1,deplacements);
-         super.addMove(x,y-1,deplacements);
-         super.addMove(x-1,y-1,deplacements);
-         super.addMove(x-1,y,deplacements);
-         super.addMove(x-1,y+1,deplacements);
+        menacant = super.addMove(x,y+1,deplacements);
+        menacant = super.addMove(x+1,y+1,deplacements);
+        menacant = super.addMove(x+1,y,deplacements);
+        menacant = super.addMove(x+1,y-1,deplacements);
+        menacant = super.addMove(x,y-1,deplacements);
+        menacant = super.addMove(x-1,y-1,deplacements);
+        menacant = super.addMove(x-1,y,deplacements);
+        menacant = super.addMove(x-1,y+1,deplacements);
 
         if (super.e==Equipe.Blanc) {
 
             if (!this.isBougé() && p.getCase(x + 1, y) == null && p.getCase(x + 2, y) == null && p.getCase(x + 3, y) instanceof Tour && !((Tour) p.getCase(x + 3, y)).isBougé()) {
-                 super.addMove(x + 2, y, deplacements);
+                menacant = super.addMove(x + 2, y, deplacements);
             }
             if (!this.isBougé() && p.getCase(x -1, y) == null && p.getCase(x - 2, y) == null && p.getCase(x - 3, y) == null  && p.getCase(x - 4, y) instanceof Tour && !((Tour) p.getCase(x -4, y)).isBougé()) {
-                 super.addMove(x -2, y, deplacements);
+                menacant = super.addMove(x -2, y, deplacements);
             }
         }
 
         if (super.e==Equipe.Noir) {
 
             if (!this.isBougé() && p.getCase(x + 1, y) == null && p.getCase(x + 2, y) == null && p.getCase(x + 3, y) instanceof Tour && !((Tour) p.getCase(x + 3, y)).isBougé()) {
-                 super.addMove(x + 2, y, deplacements);
+                menacant = super.addMove(x + 2, y, deplacements);
             }
             if (!this.isBougé() && p.getCase(x -1, y) == null && p.getCase(x - 2, y) == null && p.getCase(x - 3, y) == null  && p.getCase(x - 4, y) instanceof Tour && !((Tour) p.getCase(x -4, y)).isBougé()) {
-                 super.addMove(x -2, y, deplacements);
+                menacant = super.addMove(x -2, y, deplacements);
             }
         }
+
+        if(menacant) p.getEking(this).menaces.add(deplacements);
 
         super.deplacements = deplacements;
     }
